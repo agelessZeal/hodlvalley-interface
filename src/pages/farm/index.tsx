@@ -140,7 +140,9 @@ export default function Farm(): JSX.Element {
           },
         ]
 
-        return [...defaultRewards, REWARDS[pool.id]]
+        // return [...defaultRewards, REWARDS[pool.id]]
+        
+        return [...defaultRewards]
       } else if (pool.chef === Chef.MINICHEF) {
         const sushiPerSecond = ((pool.allocPoint / pool.miniChef.totalAllocPoint) * pool.miniChef.sushiPerSecond) / 1e18
         const sushiPerBlock = sushiPerSecond * averageBlockTime
@@ -185,6 +187,7 @@ export default function Farm(): JSX.Element {
     }
 
     const rewards = getRewards()
+    console.log('rewards:',rewards)
 
     const balance = swapPair ? Number(pool.balance / 1e18) : pool.balance / 10 ** kashiPair.token0.decimals
 
@@ -244,6 +247,8 @@ export default function Farm(): JSX.Element {
     .filter((farm) => {
       return type in FILTER ? FILTER[type](farm) : true
     })
+
+    console.log('data:', data)
 
   const options = {
     keys: ['pair.id', 'pair.token0.symbol', 'pair.token1.symbol'],
